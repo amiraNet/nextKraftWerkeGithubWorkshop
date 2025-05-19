@@ -37,4 +37,3 @@ This project combines a FastAPI backend (Virtual Power Plant API) with a Streaml
    - API docs: http://127.0.0.1:8000/docs
    - Dashboard: http://127.0.0.1:8501
 
-_No more st.cache warnings, and you can register plants directly via the sidebar form!_

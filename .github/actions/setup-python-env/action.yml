@@ -4,6 +4,11 @@ inputs:
   python-version:
     description: Specify the python version
     default: '3.11'
+  requirements-path:
+    required: false
+    default: 'requirements.txt' 
+    description: Name of the dependency file
+
 runs:
   using: composite
   steps:

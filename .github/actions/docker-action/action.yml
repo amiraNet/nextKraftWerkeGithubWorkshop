@@ -1,0 +1,9 @@
+name: Pylint Action
+description: Lints Python files using Pylint
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - "src/"
+
+

@@ -1,0 +1,11 @@
+name: JavaScript Action
+description: This is a javascript action
+inputs:
+  message:
+   description: message input variable
+   required: true
+runs:
+  using: "node16"
+  main: "index.js"
+
+  

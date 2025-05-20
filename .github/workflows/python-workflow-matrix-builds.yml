@@ -1,0 +1,38 @@
+name: Python CI With Composite
+on:
+    workflow_dispatch:
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+     matrix:
+      os: [ubuntu-latest, windows-latest]
+      python-version: ['3.10', '3.11']
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v4
+     - name: Setup Python
+       uses: ./.github/actions/setup-python-env
+       with:
+        python-version: '3.11'
+        requirements-path: 'requirements.txt' 
+     - name: Cache dependencies
+       uses: actions/cache@v3
+       with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+         ${{ runner.os }}-pip-
+
+     - name: Install dependencies
+       run: pip install -r requirements.txt
+
+     - name: Run tests
+       run: pytest --junitxml=tests/output/results.xml
+
+     - name: Upload test results
+       if: success() && github.event_name == 'push'
+       uses: actions/upload-artifact@v4
+       with:
+        name: test-results
+        path: ./tests/output/

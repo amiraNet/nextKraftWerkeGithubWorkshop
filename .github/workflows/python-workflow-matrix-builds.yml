@@ -1,4 +1,4 @@
-name: Python CI With Composite
+name: Python CI With Build Matrix
 on:
     workflow_dispatch:
 jobs:

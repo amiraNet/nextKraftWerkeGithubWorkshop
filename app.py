@@ -1,7 +1,7 @@
-import streamlit as st
-import pandas as pd
 import altair as alt
+import pandas as pd
 import requests
+import streamlit as st
 
 API_BASE = "http://localhost:8000"
 
@@ -22,7 +22,7 @@ with st.sidebar.form("register_form"):
             "name": name,
             "max_capacity": max_capacity,
             "min_capacity": min_capacity,
-            "status": status
+            "status": status,
         }
         resp = requests.post(f"{API_BASE}/plants/", json=payload)
         if resp.status_code == 200:
@@ -31,11 +31,13 @@ with st.sidebar.form("register_form"):
         else:
             st.sidebar.error(f"Error: {{resp.text}}")
 
+
 @st.cache_data(ttl=60)
 def load_plants():
     r = requests.get(f"{API_BASE}/plants/")
     data = r.json()
     return pd.DataFrame(data)
+
 
 # Load plant data
 plants_df = load_plants()
@@ -56,7 +58,7 @@ cap_chart = (
     .encode(
         x=alt.X("name:N", title="Plant"),
         y=alt.Y("max_capacity:Q", title="Max Capacity (kW)"),
-        color=alt.Color("status:N", legend=alt.Legend(title="Status"))
+        color=alt.Color("status:N", legend=alt.Legend(title="Status")),
     )
     .properties(width=700, height=300)
 )
@@ -79,7 +81,7 @@ if max_demand == 1:
         min_value=1,
         max_value=1,
         value=1,
-        help="Only 1 kW possible given current capacity"
+        help="Only 1 kW possible given current capacity",
     )
 else:
     demand = st.sidebar.slider(
@@ -87,7 +89,7 @@ else:
         min_value=1,
         max_value=max_demand,
         value=default_demand,
-        help="Adjust to set how much demand to dispatch"
+        help="Adjust to set how much demand to dispatch",
     )
 st.subheader(f"Dispatch Allocation for Demand = {demand} kW")
 resp = requests.post(f"{API_BASE}/dispatch/", json={"demand": demand})
@@ -112,7 +114,7 @@ pie = (
     .mark_arc(innerRadius=50)
     .encode(
         theta=alt.Theta("allocated:Q", title="Allocated kW"),
-        color=alt.Color("name:N", legend=alt.Legend(title="Plant"))
+        color=alt.Color("name:N", legend=alt.Legend(title="Plant")),
     )
     .properties(width=300, height=300)
 )

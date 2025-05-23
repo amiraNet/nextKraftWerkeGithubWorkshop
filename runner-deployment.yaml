@@ -1,0 +1,18 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: gha-runners
+  namespace: actions-runner-system
+spec:
+  replicas: 2                    
+  template:
+    spec:
+      repository: amiraNet/nextKraftWerkeGithubWorkshop
+      labels:
+        - self-hosted
+        - mac-aks
+        - linux
+      resources:
+        requests:
+          cpu:    "500m"
+          memory: "512Mi"

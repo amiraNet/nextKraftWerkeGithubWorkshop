@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: arc-actions-runner-controller-serving-cert
+  namespace: actions-runner-system
+spec:
+  secretName: arc-actions-runner-controller-serving-cert
+  # include both service DNS names
+  dnsNames:
+    - arc-webhook-service.actions-runner-system.svc
+    - arc-actions-runner-controller-webhook.actions-runner-system.svc
+  issuerRef:
+    name: arc-selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io

@@ -16,6 +16,16 @@ jobs:
       run: |
         echo "Runner:" $RUNNER_NAME
         uname -a
+    - name: Install Azure CLI
+      run: |
+         # This script is provided by Microsoft to install az on Debian/Ubuntu
+         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+       creds: ${{ secrets.AZURE_CREDENTIALS }}
+
 
     - name: Build & Push Backend Image
       run: |

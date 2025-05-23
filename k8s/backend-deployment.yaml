@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpp-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vpp-backend
+  template:
+    metadata:
+      labels:
+        app: vpp-backend
+    spec:
+      containers:
+      - name: vpp-backend
+        image: ghaksregistry.azurecr.io/vpp-backend:{{ github.run_id || "latest" }}
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vpp-backend-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: vpp-backend
+  ports:
+  - port: 80
+    targetPort: 8000

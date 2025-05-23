@@ -25,21 +25,20 @@ jobs:
       uses: azure/login@v1
       with:
        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-
     - name: Build & Push Backend Image
       run: |
-        az acr build \
-          --registry ghaksregistry \
-          --image vpp-backend:${{ github.run_id }} \
-          --file Dockerfile.backend .
+          docker build \
+            --file Dockerfile.backend \
+            --tag ghaksregistry.azurecr.io/vpp-backend:${{ github.run_id }} \
+            .
+          docker push ghaksregistry.azurecr.io/vpp-backend:${{ github.run_id }}
 
     - name: Build & Push Frontend Image
       run: |
-        az acr build \
-          --registry ghaksregistry \
-          --image vpp-frontend:${{ github.run_id }} \
-          --file Dockerfile.frontend .
+          docker build \
+            --file Dockerfile.frontend \
+            --tag ghaksregistry.azurecr.io/vpp-frontend:${{ github.run_id }} \
+            .
 
     - name: Set AKS context
       uses: azure/aks-set-context@v1

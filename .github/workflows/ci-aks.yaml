@@ -39,6 +39,8 @@ jobs:
             --file Dockerfile.frontend \
             --tag ghaksregistry.azurecr.io/vpp-frontend:${{ github.run_id }} \
             .
+          docker push ghaksregistry.azurecr.io/vpp-frontend:${{ github.run_id }}
+
 
     - name: Set AKS context
       uses: azure/aks-set-context@v1

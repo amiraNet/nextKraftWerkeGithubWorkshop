@@ -50,6 +50,10 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         cluster-name: AKS-GHAKS
         resource-group: RG-GHAKS
+    - name: Install kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
 
     - name: Deploy to AKS
       run: |

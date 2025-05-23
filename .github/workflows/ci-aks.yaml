@@ -20,14 +20,14 @@ jobs:
     - name: Build & Push Backend Image
       run: |
         az acr build \
-          --registry ghaKSregistry \
+          --registry ghaksregistry \
           --image vpp-backend:${{ github.run_id }} \
           --file Dockerfile.backend .
 
     - name: Build & Push Frontend Image
       run: |
         az acr build \
-          --registry ghaKSregistry \
+          --registry ghaksregistry \
           --image vpp-frontend:${{ github.run_id }} \
           --file Dockerfile.frontend .
 

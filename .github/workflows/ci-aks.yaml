@@ -44,7 +44,7 @@ jobs:
 
 
     - name: Set AKS context
-      uses: azure/aks-set-context@v1
+      uses: azure/aks-set-context@v4
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         cluster-name: AKS-GHAKS

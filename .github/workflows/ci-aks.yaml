@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: [ self-hosted, linux, mac-aks ]  # must match your runner’s labels
+    runs-on: [ self-hosted, linux, mac-aks ]  
 
     steps:
     - name: Check out code

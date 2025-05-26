@@ -2,7 +2,7 @@ name: Hello World
 on: [push]
 jobs:
  say-hello:
-  runs-on: [self-hosetd, mac, ubuntu-latest]
+  runs-on: [self-hosted, macOS, X64]
   steps:
    - name: Print Greeting
      run: echo "hello 👋, Github Actions!"

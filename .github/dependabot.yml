@@ -9,7 +9,53 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+      time: "02:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    
+    # Only bump patch and minor (no major) for pip dependencies
+    versioning-strategy: "increase"
+    
+    # Group all pytest, flake8, mypy, black, isort updates into one PR
+    group:
+      name: "dev-dependencies"
+      patterns:
+        - "^pytest$"
+        - "^pytest-.*"
+        - "^flake8$"
+        - "^black$"
+        - "^isort$"
+        - "^mypy$"
+        
+    # Ignore specific packages or version ranges you do not want bumped
+    ignore:
+      # Skip all NumPy 1.19.x releases due to a known 1.19.4 bug
+      - dependency-name: "numpy"
+        versions:
+          - "==1.19.*"
+    
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+      
+    # Enable auto-merge, trusting branch protection (CI + 1 approval)  
+    auto-merge: true
+    automerge-type: "pr"
+    automerge-strategy: "branch"
+    automerge-retry:
+      enabled: true
+      max-retries: 3
+   # Tag PRs for easier filtering/notification
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automerge"
+
+    # Prefix every Dependabot commit with this string
+    commit-message:
+      prefix: "chore(actions):"
+    # Customize how Dependabot names its branch
+    pull-request-branch-name:
+      prefix: "dependabot-actions"
+      separator: "-"

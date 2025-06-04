@@ -17,15 +17,15 @@ updates:
     versioning-strategy: "increase"
     
     # Group all pytest, flake8, mypy, black, isort updates into one PR
-    group:
-      name: "dev-dependencies"
-      patterns:
-        - "^pytest$"
-        - "^pytest-.*"
-        - "^flake8$"
-        - "^black$"
-        - "^isort$"
-        - "^mypy$"
+    groups:
+      dev-dependencies:
+        patterns:
+          - "^pytest$"
+          - "^pytest-.*"
+          - "^flake8$"
+          - "^black$"
+          - "^isort$"
+          - "^mypy$"
         
     # Ignore specific packages or version ranges you do not want bumped
     ignore:
@@ -48,7 +48,4 @@ updates:
     # Prefix every Dependabot commit with this string
     commit-message:
       prefix: "chore(actions):"
-    # Customize how Dependabot names its branch
-    pull-request-branch-name:
-      prefix: "dependabot-actions"
-      separator: "-"
+

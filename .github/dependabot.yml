@@ -33,19 +33,12 @@ updates:
       - dependency-name: "numpy"
         versions:
           - "==1.19.*"
-    
+          
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       
-    # Enable auto-merge, trusting branch protection (CI + 1 approval)  
-    auto-merge: true
-    automerge-type: "pr"
-    automerge-strategy: "branch"
-    automerge-retry:
-      enabled: true
-      max-retries: 3
    # Tag PRs for easier filtering/notification
     labels:
       - "dependencies"
